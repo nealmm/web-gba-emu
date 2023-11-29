@@ -1,1 +1,1 @@
-# web-gba-emu
+# Web Game Boy Advance Emulator

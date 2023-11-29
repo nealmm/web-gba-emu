@@ -1,0 +1,18 @@
+{
+  "name": "web-gba-emu",
+  "version": "1.0.0",
+  "scripts": {
+    "preconfig": "git submodule update --init --recursive",
+    "config": "extern/emsdk/emsdk install latest && extern/emsdk/emsdk activate latest",
+    "cmake": "extern/emsdk/upstream/emscripten/emcmake cmake -B build",
+    "make": "extern/emsdk/upstream/emscripten/emmake make -C build",
+    "prebuild": "cp -r public/. dist",
+    "build:cpp": "npm run cmake && npm run make",
+    "build:css": "tailwindcss -i src/base.css -o dist/style.css",
+    "build": "npm run build:cpp && npm run build:css",
+    "preview": "extern/emsdk/upstream/emscripten/emrun dist/index.html"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}

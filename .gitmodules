@@ -1,0 +1,6 @@
+[submodule "extern/emsdk"]
+	path = extern/emsdk
+	url = https://github.com/emscripten-core/emsdk
+[submodule "extern/NanoBoyAdvance"]
+	path = extern/NanoBoyAdvance
+	url = https://github.com/nealmm/NanoBoyAdvance
