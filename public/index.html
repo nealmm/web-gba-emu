@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web GBA Emulator</title>
-    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
+    <dialog id="rom-dialog">
+        <label for="rom-file-input">Select a ROM file:</label>
+        <input id="rom-file-input" type="file">
+        <button id="play-rom-button">Play</button>
+    </dialog>
     <canvas id="canvas"></canvas>
     <script src="pre.js"></script>
     <script src="main.js"></script>
