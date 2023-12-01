@@ -2,6 +2,9 @@
 
 #include <SDL.h>
 
+#include <emscripten.h>
+#include <emscripten/bind.h>
+
 #include <nba/device/input_device.hpp>
 #include <nba/device/video_device.hpp>
 
@@ -11,14 +14,34 @@
 #include <platform/loader/rom.hpp>
 #include <platform/emulator_thread.hpp>
 
-#include <emscripten.h>
-
 SDL_Window *window;
 SDL_Renderer *renderer;
 SDL_Surface *surface;
 u32 *framebuffer;
 
 auto input_dev = std::make_shared<nba::BasicInputDevice>();
+
+void set_key_status(nba::InputDevice::Key key, bool pressed) {
+    input_dev->SetKeyStatus(key, pressed);
+}
+
+namespace emscripten {
+    EMSCRIPTEN_BINDINGS(input) {
+        enum_<nba::InputDevice::Key>("Key")
+            .value("Up", nba::InputDevice::Key::Up)
+            .value("Down", nba::InputDevice::Key::Down)
+            .value("Left", nba::InputDevice::Key::Left)
+            .value("Right", nba::InputDevice::Key::Right)
+            .value("Start", nba::InputDevice::Key::Start)
+            .value("Select", nba::InputDevice::Key::Select)
+            .value("A", nba::InputDevice::Key::A)
+            .value("B", nba::InputDevice::Key::B)
+            .value("L", nba::InputDevice::Key::L)
+            .value("R", nba::InputDevice::Key::R);
+
+        function("setKeyStatus", &set_key_status);
+    }
+}
 
 struct Screen : nba::VideoDevice {
     void Draw(u32 *buffer) {

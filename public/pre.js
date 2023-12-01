@@ -24,5 +24,38 @@ var Module = {
 
             Module.callMain([file.name]);
         });
-    }]
+    }],
+
+    onRuntimeInitialized: function() {
+        const keymap = {
+            'KeyW': Module.Key.Up,
+            'KeyS': Module.Key.Down,
+            'KeyA': Module.Key.Left,
+            'KeyD': Module.Key.Right,
+            'KeyX': Module.Key.Start,
+            'KeyZ': Module.Key.Select,
+            'KeyL': Module.Key.A,
+            'KeyK': Module.Key.B,
+            'ShiftLeft': Module.Key.L,
+            'ShiftRight': Module.Key.R
+        };
+
+        document.addEventListener('keydown', event => {
+            if (!event.repeat) {
+                const key = keymap[event.code];
+
+                if (key !== undefined) {
+                    Module.setKeyStatus(key, true);
+                }
+            }
+        });
+
+        document.addEventListener('keyup', event => {
+            const key = keymap[event.code];
+
+            if (key !== undefined) {
+                Module.setKeyStatus(key, false);
+            }
+        });
+    }
 };
