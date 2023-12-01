@@ -16,6 +16,6 @@ target_link_options(main PRIVATE
     -sASSERTIONS
     -sEXPORTED_RUNTIME_METHODS=callMain,setValue
     -sPTHREAD_POOL_SIZE=2
-    -sTOTAL_MEMORY=2gb
+    -sTOTAL_MEMORY=1gb
     --preload-file ${CMAKE_SOURCE_DIR}/src/assets/bios.bin@bios.bin
 )
