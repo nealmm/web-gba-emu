@@ -6,6 +6,10 @@ var Module = {
     }(),
 
     preRun: [function() {
+        FS.mkdir('saves');
+        FS.mount(IDBFS, {}, 'saves');
+        FS.syncfs(true, () => {});
+
         const dialog = document.getElementById('rom-dialog');
         const input = document.getElementById('rom-file-input');
         const button = document.getElementById('play-rom-button');

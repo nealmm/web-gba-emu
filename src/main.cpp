@@ -19,6 +19,10 @@ SDL_Renderer *renderer;
 SDL_Surface *surface;
 u32 *framebuffer;
 
+fs::path save_path;
+fs::file_time_type last_sync_time;
+bool syncing_save = false;
+
 auto input_dev = std::make_shared<nba::BasicInputDevice>();
 
 void set_key_status(nba::InputDevice::Key key, bool pressed) {
@@ -70,6 +74,21 @@ void frame() {
     SDL_RenderCopy(renderer, texture, NULL, NULL);
     SDL_RenderPresent(renderer);
     SDL_DestroyTexture(texture);
+
+    if (!syncing_save) {
+        auto last_write_time = fs::last_write_time(save_path);
+
+        if (last_write_time > last_sync_time) {
+            last_sync_time = last_write_time;
+            syncing_save = true;
+
+            EM_ASM({
+                FS.syncfs(false, () => {
+                    Module.setValue($0, false, 'i8');
+                });
+            }, &syncing_save);
+        }
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -87,7 +106,7 @@ int main(int argc, char *argv[]) {
     auto core = nba::CreateCore(config);
 
     auto rom_path = fs::path{argv[1]};
-    auto save_path = fs::path{argv[1]}.replace_extension(".sav");
+    save_path = "saves" / fs::path{argv[1]}.replace_extension(".sav");
 
     auto save_type = config->cartridge.backup_type;
 
