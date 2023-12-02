@@ -6,6 +6,7 @@ var Module = {
     }(),
 
     preRun: [function() {
+        alert('preRun');
         FS.mkdir('saves');
         FS.mount(IDBFS, {}, 'saves');
         FS.syncfs(true, () => {});
@@ -31,6 +32,7 @@ var Module = {
     }],
 
     onRuntimeInitialized: function() {
+        alert('onRuntimeInitialized');
         const keymap = {
             'KeyW': Module.Key.Up,
             'KeyS': Module.Key.Down,
