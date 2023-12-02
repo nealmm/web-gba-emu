@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(extern/NanoBoyAdvance)
 
+target_compile_options(nba PUBLIC -pthread)
+target_link_options(nba PUBLIC -pthread)
+
 add_executable(main src/main.cpp)
 set_target_properties(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/dist)
 
