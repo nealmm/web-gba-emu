@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="w-[100dvw] h-[100dvh]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="coi-serviceworker.js"></script>
 </head>
-<body class="w-[100dvw] h-[100dvh]">
+<body class="">
     <dialog id="rom-dialog" class="rounded-lg bg-bgColor p-10 md:max-w-prose">
         <h1 class="title mb-6">Lorem Ipsum</h1>
         <p class="mb-4">
@@ -21,7 +21,7 @@
         <label for="rom-file-input">Select a ROM file:</label>
         <input id="rom-file-input" type="file" class="file:cursor-pointer">
         <div class="flex justify-center">
-            <button id="play-rom-button" class="rounded bg-accent disabled:cursor-not-allowed disabled:bg-gray-700 mt-10 px-4 py-1 text-2xl" hidden>Play</button>
+            <button id="play-rom-button" class="rounded bg-accent mt-10 px-4 py-1 text-2xl" hidden>Play</button>
         </div>
     </dialog>
     <canvas id="canvas"></canvas>
