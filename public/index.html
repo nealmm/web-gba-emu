@@ -8,12 +8,39 @@
     <script src="coi-serviceworker.js"></script>
 </head>
 <body>
-    <dialog id="rom-dialog">
+    <dialog id="rom-dialog" class="rounded-lg bg-bgColor p-10 md:max-w-prose">
+        <h1 class="title mb-6">Lorem Ipsum</h1>
+        <p class="mb-4">
+            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+            deserunt mollit anim id est laborum.
+        </p>
         <label for="rom-file-input">Select a ROM file:</label>
-        <input id="rom-file-input" type="file">
-        <button id="play-rom-button">Play</button>
+        <input id="rom-file-input" type="file" class="file:cursor-pointer">
+        <div class="flex justify-center">
+            <button id="play-rom-button" class="rounded bg-accent disabled:cursor-not-allowed disabled:bg-gray-700 mt-10 px-4 py-1 text-2xl" hidden>Play</button>
+        </div>
     </dialog>
     <canvas id="canvas"></canvas>
+    <div id="touch-controls" hidden>
+        <svg width="160px" height="320px" class="absolute bottom-0 left-0" id="left-controls" viewBox="0 0 38 70">
+            <rect id="l-button" x="4" y="0" width="20" height="7" rx="2" fill="lightgray"/>
+            <polygon id="up-button" points="16,35 20,31 20,23 12,23 12,31" fill="lightgray"/>
+            <polygon id="down-button" points="16,35 20,39 20,47 12,47 12,39" fill="lightgray"/>
+            <polygon id="left-button" points="16,35 12,39 4,39 4,31 12,31" fill="lightgray"/>
+            <polygon id="right-button" points="16,35 20,31 28,31 28,39 20,39" fill="lightgray"/>
+            <rect id="select-button" x="29" y="55" width="8" height="3" rx="1" fill="lightgray"/>
+        </svg>
+        <svg width="160px" height="320px" class="absolute bottom-0 right-0" id="right-controls" viewBox="0 0 38 70">
+            <rect id="r-button" x="14" y="0" width="20" height="7" rx="2" fill="lightgray"/>
+            <circle id="a-button" cx="27" cy="33" r="5" fill="lightgray"/>
+            <circle id="b-button" cx="14" cy="37" r="5" fill="lightgray"/>
+            <rect id="start-button" x="1" y="55" width="8" height="3" rx="1" fill="lightgray"/>
+        </svg>
+      </div>
     <script src="pre.js"></script>
     <script src="main.js"></script>
 </body>

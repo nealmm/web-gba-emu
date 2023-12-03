@@ -13,6 +13,8 @@
     "preview": "extern/emsdk/upstream/emscripten/emrun dist/index.html"
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.10",
     "tailwindcss": "^3.3.5"
   }
 }
