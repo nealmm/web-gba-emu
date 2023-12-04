@@ -76,6 +76,21 @@ var Module = {
             const touchControls = document.getElementById('touch-controls');
             touchControls.hidden = false;
 
+            const mediaQuery = window.matchMedia('(orientation: portrait)');
+
+            if (mediaQuery.matches) {
+                document.getElementById('display').style.height = '50%';
+            }
+
+            mediaQuery.addEventListener('change', event => {
+                if (event.matches) {
+                    document.getElementById('display').style.height = '50%';
+                }
+                else {
+                    document.getElementById('display').style.height = '100%';
+                }
+            });
+
             const handlePress = id => {
                 switch (id) {
                     case 'up-button':
