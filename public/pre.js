@@ -1,3 +1,120 @@
+function setupEventListeners() {
+    const keymap = {
+        'KeyW': Module.Key.Up,
+        'KeyS': Module.Key.Down,
+        'KeyA': Module.Key.Left,
+        'KeyD': Module.Key.Right,
+        'KeyX': Module.Key.Start,
+        'KeyZ': Module.Key.Select,
+        'KeyL': Module.Key.A,
+        'KeyK': Module.Key.B,
+        'ShiftLeft': Module.Key.L,
+        'ShiftRight': Module.Key.R
+    };
+
+    document.addEventListener('keydown', event => {
+        if (!event.repeat) {
+            const key = keymap[event.code];
+
+            if (key != undefined) {
+                Module.setKeyStatus(key, true);
+            }
+        }
+    });
+
+    document.addEventListener('keyup', event => {
+        const key = keymap[event.code];
+
+        if (key != undefined) {
+            Module.setKeyStatus(key, false);
+        }
+    });
+
+    if ('ontouchstart' in window || (window.DocumentTouch && document instanceof DocumentTouch)) {
+        const touchControls = document.getElementById('touch-controls');
+        touchControls.hidden = false;
+
+        const mediaQuery = window.matchMedia('(orientation: portrait)');
+
+        if (mediaQuery.matches) {
+            document.getElementById('display').style.height = '50%';
+        }
+
+        mediaQuery.addEventListener('change', event => {
+            if (event.matches) {
+                document.getElementById('display').style.height = '50%';
+            }
+            else {
+                document.getElementById('display').style.height = '100%';
+            }
+        });
+
+        const buttonMap = {
+            'up-button': Module.key.Up,
+            'down-button': Module.key.Down,
+            'left-button': Module.key.Left,
+            'right-button': Module.key.Right,
+            'start-button': Module.key.Start,
+            'select-button': Module.key.Select,
+            'a-button': Module.key.A,
+            'b-button': Module.key.B,
+            'l-button': Module.key.L,
+            'r-button': Module.key.R
+        };
+
+        const handlePress = id => {
+            const key = buttonMap[id];
+
+            if (key != undefined) {
+                Module.setKeyStatus(key, true);
+            }
+        };
+
+        const handleDepress = id => {
+            const key = buttonMap[id];
+
+            if (key != undefined) {
+                Module.setKeyStatus(key, false);
+            }
+        };
+
+        const lastTarget = {};
+
+        touchControls.addEventListener('touchstart', event => {
+            for (touch of event.changedTouches) {
+                lastTarget[touch.identifier] = touch.target;
+                handlePress(touch.target.id);
+            }
+        });
+
+        touchControls.addEventListener('touchend', event => {
+            for (touch of event.changedTouches) {
+                handleDepress(lastTarget[touch.identifier].id);
+                delete lastTarget[touch.identifier];
+            }
+        });
+
+        touchControls.addEventListener('touchmove', event => {
+            for (touch of event.changedTouches) {
+                const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+
+                if (lastTarget[touch.identifier] != elem) {
+                    handleDepress(lastTarget[touch.identifier].id);
+                    lastTarget[touch.identifier] = elem;
+                    handlePress(elem.id);
+                }
+            }
+        });
+
+        touchControls.addEventListener('touchcancel', event => {
+            for (touch of event.changedTouches) {
+                handleDepress(lastTarget[touch.identifier].id);
+                delete lastTarget[touch.identifier];
+            }
+        });
+    }
+}
+
 var Module = {
     noInitialRun: true,
 
@@ -48,185 +165,11 @@ var Module = {
             FS.write(stream, buffer, 0, buffer.length);
             FS.close(stream);
 
-            dialog.close();
-
             Module.callMain([file.name]);
+
+            setupEventListeners();
+
+            dialog.close();
         });
-    }],
-
-    onRuntimeInitialized: function() {
-        const keymap = {
-            'KeyW': Module.Key.Up,
-            'KeyS': Module.Key.Down,
-            'KeyA': Module.Key.Left,
-            'KeyD': Module.Key.Right,
-            'KeyX': Module.Key.Start,
-            'KeyZ': Module.Key.Select,
-            'KeyL': Module.Key.A,
-            'KeyK': Module.Key.B,
-            'ShiftLeft': Module.Key.L,
-            'ShiftRight': Module.Key.R
-        };
-
-        document.addEventListener('keydown', event => {
-            if (!event.repeat) {
-                const key = keymap[event.code];
-
-                if (key !== undefined) {
-                    Module.setKeyStatus(key, true);
-                }
-            }
-        });
-
-        document.addEventListener('keyup', event => {
-            const key = keymap[event.code];
-
-            if (key !== undefined) {
-                Module.setKeyStatus(key, false);
-            }
-        });
-
-        if ('ontouchstart' in window || (window.DocumentTouch && document instanceof DocumentTouch)) {
-            const touchControls = document.getElementById('touch-controls');
-            touchControls.hidden = false;
-
-            const mediaQuery = window.matchMedia('(orientation: portrait)');
-
-            if (mediaQuery.matches) {
-                document.getElementById('display').style.height = '50%';
-            }
-
-            mediaQuery.addEventListener('change', event => {
-                if (event.matches) {
-                    document.getElementById('display').style.height = '50%';
-                }
-                else {
-                    document.getElementById('display').style.height = '100%';
-                }
-            });
-
-            const handlePress = id => {
-                switch (id) {
-                    case 'up-button':
-                        Module.setKeyStatus(Module.Key.Up, true);
-                        break;
-
-                    case 'down-button':
-                        Module.setKeyStatus(Module.Key.Down, true);
-                        break;
-
-                    case 'left-button':
-                        Module.setKeyStatus(Module.Key.Left, true);
-                        break;
-
-                    case 'right-button':
-                        Module.setKeyStatus(Module.Key.Right, true);
-                        break;
-
-                    case 'start-button':
-                        Module.setKeyStatus(Module.Key.Start, true);
-                        break;
-
-                    case 'select-button':
-                        Module.setKeyStatus(Module.Key.Select, true);
-                        break;
-
-                    case 'a-button':
-                        Module.setKeyStatus(Module.Key.A, true);
-                        break;
-
-                    case 'b-button':
-                        Module.setKeyStatus(Module.Key.B, true);
-                        break;
-
-                    case 'l-button':
-                        Module.setKeyStatus(Module.Key.L, true);
-                        break;
-
-                    case 'r-button':
-                        Module.setKeyStatus(Module.Key.R, true);
-                        break;
-                }
-            };
-
-            const handleDepress = id => {
-                switch (id) {
-                    case 'up-button':
-                        Module.setKeyStatus(Module.Key.Up, false);
-                        break;
-
-                    case 'down-button':
-                        Module.setKeyStatus(Module.Key.Down, false);
-                        break;
-
-                    case 'left-button':
-                        Module.setKeyStatus(Module.Key.Left, false);
-                        break;
-
-                    case 'right-button':
-                        Module.setKeyStatus(Module.Key.Right, false);
-                        break;
-
-                    case 'start-button':
-                        Module.setKeyStatus(Module.Key.Start, false);
-                        break;
-
-                    case 'select-button':
-                        Module.setKeyStatus(Module.Key.Select, false);
-                        break;
-
-                    case 'a-button':
-                        Module.setKeyStatus(Module.Key.A, false);
-                        break;
-
-                    case 'b-button':
-                        Module.setKeyStatus(Module.Key.B, false);
-                        break;
-
-                    case 'l-button':
-                        Module.setKeyStatus(Module.Key.L, false);
-                        break;
-
-                    case 'r-button':
-                        Module.setKeyStatus(Module.Key.R, false);
-                        break;
-                }
-            };
-
-            const lastTarget = {};
-
-            touchControls.addEventListener('touchstart', event => {
-                for (touch of event.changedTouches) {
-                    lastTarget[touch.identifier] = touch.target;
-                    handlePress(touch.target.id);
-                }
-            });
-
-            touchControls.addEventListener('touchend', event => {
-                for (touch of event.changedTouches) {
-                    handleDepress(lastTarget[touch.identifier].id);
-                    delete lastTarget[touch.identifier];
-                }
-            });
-
-            touchControls.addEventListener('touchmove', event => {
-                for (touch of event.changedTouches) {
-                    const elem = document.elementFromPoint(touch.clientX, touch.clientY);
-
-                    if (lastTarget[touch.identifier] != elem) {
-                        handleDepress(lastTarget[touch.identifier].id);
-                        lastTarget[touch.identifier] = elem;
-                        handlePress(elem.id);
-                    }
-                }
-            });
-
-            touchControls.addEventListener('touchcancel', event => {
-                for (touch of event.changedTouches) {
-                    handleDepress(lastTarget[touch.identifier].id);
-                    delete lastTarget[touch.identifier];
-                }
-            });
-        }
-    }
+    }]
 };
