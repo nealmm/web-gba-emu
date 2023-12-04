@@ -13,7 +13,7 @@ var Module = {
 
         const root = document.documentElement;
 
-        if ((theme === "dark" && root.classList.contains("dark")) || (newTheme === "light" && !root.classList.contains("dark"))) {
+        if ((theme === "dark" && root.classList.contains("dark")) || (theme === "light" && !root.classList.contains("dark"))) {
             // nothing to set here
         }
         else {
