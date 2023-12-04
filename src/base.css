@@ -53,6 +53,18 @@ SOFTWARE.
 	}
 
 	html body {
-		@apply mx-auto flex flex-col bg-bgColor px-8 pt-16 font-mono text-sm font-normal text-textColor antialiased;
+		@apply mx-auto flex flex-col bg-black font-mono text-sm font-normal text-textColor antialiased;
+	}
+
+	@media (aspect-ratio <= 3/2) {
+		#canvas {
+			@apply w-full h-auto;
+		}
+	}
+
+	@media (aspect-ratio > 3/2) {
+		#canvas {
+			@apply w-auto h-full;
+		}
 	}
 }
