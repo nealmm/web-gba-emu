@@ -26,7 +26,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 const   plugin       = require('tailwindcss/plugin');
 
 module.exports = {
-  content: ['public/index.html'],
+  content: ['public/index.html', 'public/pre.js'],
   darkMode: 'class',
   corePlugins: {
 		// disable aspect ratio as per docs -> @tailwindcss/aspect-ratio
