@@ -20,11 +20,11 @@
         </p>
         <label for="rom-file-input">Select a ROM file:</label>
         <input id="rom-file-input" type="file" class="file:cursor-pointer">
-        <div id="display" class="flex justify-center">
+        <div class="flex justify-center">
             <button id="play-rom-button" class="rounded bg-accent mt-10 px-4 py-1 text-2xl" hidden>Play</button>
         </div>
     </dialog>
-    <div class="w-full h-full flex justify-center items-center">
+    <div id="display" class="w-full h-full flex justify-center items-center">
         <canvas id="canvas" class="aspect-[3/2]"></canvas>
     </div>
     <div id="touch-controls" hidden>
