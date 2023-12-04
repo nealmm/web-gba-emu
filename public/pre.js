@@ -50,16 +50,16 @@ function setupEventListeners() {
         });
 
         const buttonMap = {
-            'up-button': Module.key.Up,
-            'down-button': Module.key.Down,
-            'left-button': Module.key.Left,
-            'right-button': Module.key.Right,
-            'start-button': Module.key.Start,
-            'select-button': Module.key.Select,
-            'a-button': Module.key.A,
-            'b-button': Module.key.B,
-            'l-button': Module.key.L,
-            'r-button': Module.key.R
+            'up-button': Module.Key.Up,
+            'down-button': Module.Key.Down,
+            'left-button': Module.Key.Left,
+            'right-button': Module.Key.Right,
+            'start-button': Module.Key.Start,
+            'select-button': Module.Key.Select,
+            'a-button': Module.Key.A,
+            'b-button': Module.Key.B,
+            'l-button': Module.Key.L,
+            'r-button': Module.Key.R
         };
 
         const handlePress = id => {
