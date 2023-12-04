@@ -6,6 +6,20 @@ var Module = {
     }(),
 
     preRun: [function() {
+        const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
+        const theme = storedTheme || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+
+        // should check for valid stored theme value
+
+        const root = document.documentElement;
+
+        if ((theme === "dark" && root.classList.contains("dark")) || (newTheme === "light" && !root.classList.contains("dark"))) {
+            // nothing to set here
+        }
+        else {
+            document.documentElement.classList.toggle("dark", theme === "dark");
+        }
+
         FS.mkdir('saves');
         FS.mount(IDBFS, {}, 'saves');
         FS.syncfs(true, () => {});
