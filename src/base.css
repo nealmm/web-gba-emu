@@ -56,15 +56,15 @@ SOFTWARE.
 		@apply mx-auto flex flex-col bg-black font-mono text-sm font-normal text-textColor antialiased;
 	}
 
-	@media (aspect-ratio <= 3/2) {
+	@media (min-aspect-ratio: 3/2) {
 		#canvas {
-			@apply w-full h-auto;
+			@apply w-auto h-full;
 		}
 	}
 
-	@media (aspect-ratio > 3/2) {
+	@media (max-aspect-ratio: 3/2) {
 		#canvas {
-			@apply w-auto h-full;
+			@apply w-full h-auto;
 		}
 	}
 }
