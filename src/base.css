@@ -67,4 +67,13 @@ SOFTWARE.
 			@apply w-full h-auto;
 		}
 	}
+
+	kbd {
+		@apply inline-block border border-solid rounded py-0.5 px-1.5 m-0.5;
+		box-shadow: 1px 1px hsl(var(--theme-text));
+	}
+
+	td {
+		@apply even:text-right;
+	}
 }
