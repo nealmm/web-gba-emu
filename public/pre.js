@@ -78,30 +78,23 @@ function setupEventListeners() {
             }
         };
 
-        const eventParams = { passive: false };
         const lastTarget = {};
 
         touchControls.addEventListener('touchstart', event => {
-            event.preventDefault();
-
             for (touch of event.changedTouches) {
                 lastTarget[touch.identifier] = touch.target;
                 handlePress(touch.target.id);
             }
-        }, eventParams);
+        });
 
         touchControls.addEventListener('touchend', event => {
-            event.preventDefault();
-
             for (touch of event.changedTouches) {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
             }
-        }, eventParams);
+        });
 
         touchControls.addEventListener('touchmove', event => {
-            event.preventDefault();
-
             for (touch of event.changedTouches) {
                 const elem = document.elementFromPoint(touch.clientX, touch.clientY);
 
@@ -111,21 +104,14 @@ function setupEventListeners() {
                     handlePress(elem.id);
                 }
             }
-        }, eventParams);
+        });
 
         touchControls.addEventListener('touchcancel', event => {
-            event.preventDefault();
-
             for (touch of event.changedTouches) {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
             }
-        }, eventParams);
-
-        document.body.addEventListener('touchstart', e => e.preventDefault(), eventParams);
-        document.body.addEventListener('touchend', e => e.preventDefault(), eventParams);
-        document.body.addEventListener('touchmove', e => e.preventDefault(), eventParams);
-        document.body.addEventListener('touchcancel', e => e.preventDefault(), eventParams);
+        });
     }
 }
 
