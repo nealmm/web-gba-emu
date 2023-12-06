@@ -42,6 +42,9 @@ module.exports = {
 	},
   theme: {
 		extend: {
+			screens: {
+				'md': '440px'
+			},
 			colors: {
 				bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
 				textColor: "hsl(var(--theme-text) / <alpha-value>)",
