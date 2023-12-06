@@ -69,8 +69,8 @@ SOFTWARE.
 	}
 
 	kbd {
-		@apply inline-block border border-solid rounded py-0.5 px-1.5 m-0.5;
-		box-shadow: 1px 1px hsl(var(--theme-text));
+		@apply inline-block border border-solid rounded border-gray-500 py-0.5 px-1.5 m-0.5;
+		box-shadow: #6b7280 1px 1px;
 	}
 
 	td {
