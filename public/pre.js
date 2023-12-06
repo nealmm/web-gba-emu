@@ -81,6 +81,8 @@ function setupEventListeners() {
         const lastTarget = {};
 
         touchControls.addEventListener('touchstart', event => {
+            event.preventDefault();
+
             for (touch of event.changedTouches) {
                 lastTarget[touch.identifier] = touch.target;
                 handlePress(touch.target.id);
@@ -97,6 +99,8 @@ function setupEventListeners() {
         });
 
         touchControls.addEventListener('touchmove', event => {
+            event.preventDefault();
+
             for (touch of event.changedTouches) {
                 const elem = document.elementFromPoint(touch.clientX, touch.clientY);
 
