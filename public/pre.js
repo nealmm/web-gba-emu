@@ -121,6 +121,11 @@ function setupEventListeners() {
                 delete lastTarget[touch.identifier];
             }
         }, eventParams);
+
+        document.body.addEventListener('touchstart', e => e.preventDefault(), eventParams);
+        document.body.addEventListener('touchend', e => e.preventDefault(), eventParams);
+        document.body.addEventListener('touchmove', e => e.preventDefault(), eventParams);
+        document.body.addEventListener('touchcancel', e => e.preventDefault(), eventParams);
     }
 }
 
