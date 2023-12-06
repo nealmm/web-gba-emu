@@ -88,6 +88,8 @@ function setupEventListeners() {
         });
 
         touchControls.addEventListener('touchend', event => {
+            event.preventDefault();
+
             for (touch of event.changedTouches) {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
@@ -107,6 +109,8 @@ function setupEventListeners() {
         });
 
         touchControls.addEventListener('touchcancel', event => {
+            event.preventDefault();
+
             for (touch of event.changedTouches) {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
