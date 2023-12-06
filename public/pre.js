@@ -80,6 +80,8 @@ function setupEventListeners() {
 
         const lastTarget = {};
 
+        const eventParam = { passive: false };
+
         document.addEventListener('touchstart', event => {
             event.preventDefault();
 
@@ -87,7 +89,7 @@ function setupEventListeners() {
                 lastTarget[touch.identifier] = touch.target;
                 handlePress(touch.target.id);
             }
-        });
+        }, eventParam);
 
         document.addEventListener('touchend', event => {
             event.preventDefault();
@@ -96,7 +98,7 @@ function setupEventListeners() {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
             }
-        });
+        }, eventParam);
 
         document.addEventListener('touchmove', event => {
             event.preventDefault();
@@ -110,16 +112,16 @@ function setupEventListeners() {
                     handlePress(elem.id);
                 }
             }
-        });
+        }, eventParam);
 
         document.addEventListener('touchcancel', event => {
             event.preventDefault();
-            
+
             for (touch of event.changedTouches) {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
             }
-        });
+        }, eventParam);
     }
 }
 
