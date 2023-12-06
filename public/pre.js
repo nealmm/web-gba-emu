@@ -80,21 +80,27 @@ function setupEventListeners() {
 
         const lastTarget = {};
 
-        touchControls.addEventListener('touchstart', event => {
+        document.addEventListener('touchstart', event => {
+            event.preventDefault();
+
             for (touch of event.changedTouches) {
                 lastTarget[touch.identifier] = touch.target;
                 handlePress(touch.target.id);
             }
         });
 
-        touchControls.addEventListener('touchend', event => {
+        document.addEventListener('touchend', event => {
+            event.preventDefault();
+
             for (touch of event.changedTouches) {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
             }
         });
 
-        touchControls.addEventListener('touchmove', event => {
+        document.addEventListener('touchmove', event => {
+            event.preventDefault();
+
             for (touch of event.changedTouches) {
                 const elem = document.elementFromPoint(touch.clientX, touch.clientY);
 
@@ -106,7 +112,9 @@ function setupEventListeners() {
             }
         });
 
-        touchControls.addEventListener('touchcancel', event => {
+        document.addEventListener('touchcancel', event => {
+            event.preventDefault();
+            
             for (touch of event.changedTouches) {
                 handleDepress(lastTarget[touch.identifier].id);
                 delete lastTarget[touch.identifier];
