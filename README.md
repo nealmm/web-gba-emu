@@ -1,5 +1,7 @@
 # Web Game Boy Advance Emulator
 
+A Game Boy Advance (GBA) emulator ported from C++ to JavaScript/WebAssembly that lets users play GBA games in their browser. Uses IndexedDB to store game save files and works across desktop and mobile browsers.
+
 A port of [@fleroviux](https://github.com/fleroviux)'s [NanoBoyAdvance](https://github.com/nba-emu/NanoBoyAdvance) compiled to [WebAssembly](https://webassembly.org) with [Emscripten](https://emscripten.org).
 
 ## Building
